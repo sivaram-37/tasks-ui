@@ -132,3 +132,22 @@ body {
     @apply font-sans;
   }
 }
+
+/* globals.css */
+[data-sonner-toast] {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: #dcfce7 !important;
+  color: #14532d !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: #fee2e2 !important;
+  color: #7f1d1d !important;
+  border: 1px solid #fecaca !important;
+}

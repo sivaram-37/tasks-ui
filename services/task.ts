@@ -1,6 +1,7 @@
 import { GetAllTasksQuery, TasksResponse } from "@/types/tasks";
 import { api } from "../lib/axios";
-import { tasksUrl } from "@/lib/apiUrl";
+import { taskByIdUrl, tasksUrl } from "@/lib/apiUrl";
+import { AddTaskFormType } from "@/components/modals/add-task-modal";
 
 export const taskKeys = {
   all: ["tasks"] as const,
@@ -12,7 +13,12 @@ export const getAllTasks = async (query?: GetAllTasksQuery): Promise<TasksRespon
   return res.data;
 };
 
+export const createTask = async (data: AddTaskFormType): Promise<TasksResponse> => {
+  const res = await api.post(tasksUrl, data);
+  return res.data;
+};
+
 export const deleteTask = async (id: number) => {
-  const res = await api.delete(`${tasksUrl}/${id}`);
+  const res = await api.delete(taskByIdUrl(id));
   return res.data;
 };

@@ -68,7 +68,7 @@ const Pagination = ({
           ]}
           value={pageSize.toString()}
           onChange={(value) => setPageSize(parseInt(value))}
-          className="w-24 text-sm"
+          className="w-24"
         />
       </div>
       <div>

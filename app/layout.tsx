@@ -6,6 +6,7 @@ import Titlebar from "@/components/titlebar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import QueryProvider from "@/components/providers/query-provider";
+import { Toaster } from "@/components/providers/toaster-provider";
 
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
             <TooltipProvider>
               <Titlebar />
               {children}
+              <Toaster position="top-center" duration={2000} />
             </TooltipProvider>
           </QueryProvider>
         </ThemeProvider>

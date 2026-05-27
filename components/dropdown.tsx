@@ -1,4 +1,4 @@
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const Dropdown = ({
@@ -27,17 +27,25 @@ const Dropdown = ({
     setOpen(false);
   };
 
+  const displayText = useMemo(() => {
+    return options.find((option) => option.value === value)?.label || value;
+  }, [value, options]);
+
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className={cn("w-36", className)}>
-          {value}
+          {displayText}
           <ChevronDown className="h-4 w-4 ml-auto" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {options.map((option) => (
-          <DropdownMenuItem key={option.value} onClick={() => handleSelect(option.value)}>
+          <DropdownMenuItem
+            key={option.value}
+            onClick={() => handleSelect(option.value)}
+            className={cn("cursor-pointer", displayText === option.label && "text-primary")}>
+            {displayText === option.label ? <Check className="h-4 w-4" /> : <div className="w-4" />}
             {option.label}
           </DropdownMenuItem>
         ))}
