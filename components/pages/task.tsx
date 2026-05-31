@@ -5,36 +5,68 @@ import TaskCard from "../task-card";
 import { ScrollArea } from "../ui/scroll-area";
 import { useGetAllTasks } from "@/hooks/use-get-all-tasks";
 import { useMemo, useState } from "react";
-import { getAllTasksDefaultQuery } from "@/lib/constants";
+import { defaultStatus, getAllTasksDefaultQuery } from "@/lib/constants";
 import Pagination from "../pagination";
 import { Spinner } from "../ui/spinner";
 import EmptyPage from "../EmptyPage";
 import dynamic from "next/dynamic";
+import FilterTag from "../filter-tag";
 
 const AddTaskModal = dynamic(() => import("../modals/add-task-modal"), { ssr: false });
+const FilterSection = dynamic(() => import("../filter-section"), { ssr: false });
+
+export interface FilterTypes {
+  status: string;
+  priority: string;
+  sortBy: string;
+  sortOrder: string;
+}
 
 const TaskPage = () => {
-  const [addTaskModalOpen, setAddTaskModalOpen] = useState(true);
+  const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(getAllTasksDefaultQuery.page);
   const [pageSize, setPageSize] = useState(getAllTasksDefaultQuery.page_size);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<FilterTypes>(defaultStatus);
 
   const query = useMemo(
     () => ({
       ...(search && { search }),
       page,
       page_size: pageSize,
+      sortBy: filters.sortBy,
+      sort: filters.sortOrder,
+      ...(filters.status && { status: filters.status }),
+      ...(filters.priority && { priority: filters.priority }),
     }),
-    [page, pageSize, search],
+    [page, pageSize, search, filters],
   );
 
-  const { data, isFetching } = useGetAllTasks(query);
+  const { data, isLoading } = useGetAllTasks(query);
 
   return (
     <>
-      <Actionbar search={search} setSearch={setSearch} setAddTaskModalOpen={setAddTaskModalOpen} />
-      {isFetching ? (
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-160px)]">
+      <Actionbar
+        search={search}
+        setSearch={setSearch}
+        filterOpen={filterOpen}
+        setFilterOpen={setFilterOpen}
+        setAddTaskModalOpen={setAddTaskModalOpen}
+      />
+
+      {filterOpen && (
+        <FilterSection
+          onClose={() => setFilterOpen(false)}
+          filters={filters}
+          setFilters={setFilters}
+        />
+      )}
+
+      <FilterTag filters={filters} setFilters={setFilters} />
+
+      {isLoading ? (
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-228px)]">
           <Spinner className="h-8 w-8 text-primary" />
           <span className="mt-2 animate-pulse">Fetching tasks...</span>
         </div>

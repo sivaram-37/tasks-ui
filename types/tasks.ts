@@ -17,6 +17,8 @@ export interface GetAllTasksQuery {
   search?: string;
   page?: number;
   page_size?: number;
-  sort?: "asc" | "desc";
+  sort?: string;
   sortBy?: string;
+  status?: string;
+  priority?: string;
 }

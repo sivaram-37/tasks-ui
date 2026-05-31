@@ -1,3 +1,4 @@
+import { pageSizeOptions } from "@/lib/constants";
 import Dropdown from "./dropdown";
 import {
   Pagination as ShadcnPagination,
@@ -59,16 +60,10 @@ const Pagination = ({
           {total_record} tasks
         </p>
         <Dropdown
-          options={[
-            { label: "5", value: "5" },
-            { label: "10", value: "10" },
-            { label: "25", value: "25" },
-            { label: "50", value: "50" },
-            { label: "100", value: "100" },
-          ]}
+          options={pageSizeOptions}
           value={pageSize.toString()}
           onChange={(value) => setPageSize(parseInt(value))}
-          className="w-24"
+          className="w-24 h-7"
         />
       </div>
       <div>

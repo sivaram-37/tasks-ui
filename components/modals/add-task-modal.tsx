@@ -6,17 +6,12 @@ import Dropdown from "../dropdown";
 import { Button } from "../ui/button";
 import { useCreateTask } from "@/hooks/use-create-task";
 import { toast } from "sonner";
+import { priorityOptions } from "@/lib/constants";
 
 export interface AddTaskFormType {
   title: string;
   priority?: "low" | "medium" | "high";
 }
-
-const priorityOptions = [
-  { label: "Low", value: "low" },
-  { label: "Medium", value: "medium" },
-  { label: "High", value: "high" },
-];
 
 const AddTaskModal = ({ open, setOpen }: { open: boolean; setOpen: (open: boolean) => void }) => {
   const { mutate, isPending } = useCreateTask();

@@ -37,7 +37,7 @@ export function ToggleTheme() {
         <Button
           variant={isDark ? "default" : "outline"}
           size="icon-lg"
-          className="w-10 h-10"
+          className="w-10 h-10 border border-gray-300 dark:border-border"
           onClick={handleToggle}>
           {isDark ? (
             <Sun size={32} strokeWidth={2.5} className="shrink-0" />

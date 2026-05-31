@@ -32,9 +32,11 @@ const Dropdown = ({
   }, [value, options]);
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className={cn("w-36", className)}>
+        <Button
+          variant="outline"
+          className={cn("w-48 h-9 border border-gray-300 dark:border-border", className)}>
           {displayText}
           <ChevronDown className="h-4 w-4 ml-auto" />
         </Button>
