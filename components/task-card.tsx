@@ -12,7 +12,7 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   const handleDelete = useCallback(() => {
     mutate(
-      { id: task.id },
+      { id: task._id },
       {
         onSuccess: () => {
           toast.success("Task deleted successfully!");
@@ -22,10 +22,10 @@ const TaskCard = ({ task }: { task: Task }) => {
         },
       },
     );
-  }, [task.id, mutate]);
+  }, [mutate, task._id]);
 
   return (
-    <div key={task.id} className="p-4 not-last:mb-4 rounded-md bg-background space-y-2">
+    <div key={task._id} className="p-4 not-last:mb-4 rounded-md bg-background space-y-2">
       <div className="flex items-center justify-between">
         <span className=" font-medium">{task.title}</span>
         <Button variant={"outline"} onClick={handleDelete}>
@@ -37,11 +37,11 @@ const TaskCard = ({ task }: { task: Task }) => {
           <span>Priority:</span>
           <PriorityBadge priority={task.priority} />
         </div>
-        {task.createdOn && (
+        {task.createdAt && (
           <span className="text-foreground/70">
             Created On:{" "}
             <span className="text-foreground">
-              {format(task.createdOn, "MMM dd, yyyy, hh:mm a")}
+              {format(task.createdAt, "MMM dd, yyyy, hh:mm a")}
             </span>
           </span>
         )}

@@ -1,24 +1,25 @@
 export interface Task {
-  id: number;
+  _id: string;
   title: string;
   completed: boolean;
   priority: "low" | "medium" | "high";
-  createdOn: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface TasksResponse {
   tasks: Task[];
-  page_size?: number;
+  pageSize?: number;
   page?: number;
-  total_record: number;
+  totalRecord: number;
 }
 
 export interface GetAllTasksQuery {
   search?: string;
-  page?: number;
-  page_size?: number;
-  sort?: string;
-  sortBy?: string;
   status?: string;
   priority?: string;
+  page?: number;
+  pageSize?: number;
+  sort?: string;
+  sortBy?: string;
 }

@@ -1,6 +1,6 @@
 export const getAllTasksDefaultQuery = {
   page: 1,
-  page_size: 10,
+  pageSize: 10,
   sortBy: "createdOn",
   sort: "asc",
 };
@@ -28,7 +28,6 @@ export const statusOptions = [
 
 export const sortByOptions = [
   { label: "Title", value: "title" },
-  { label: "Priority", value: "priority" },
   { label: "Created On", value: "createdOn" },
 ];
 

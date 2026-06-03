@@ -18,7 +18,7 @@ export const createTask = async (data: AddTaskFormType): Promise<TasksResponse> 
   return res.data;
 };
 
-export const deleteTask = async (id: number) => {
+export const deleteTask = async (id: string) => {
   const res = await api.delete(taskByIdUrl(id));
   return res.data;
 };

@@ -11,6 +11,7 @@ import { Spinner } from "../ui/spinner";
 import EmptyPage from "../EmptyPage";
 import dynamic from "next/dynamic";
 import FilterTag from "../filter-tag";
+import ErrorDisplay from "../ErrorDisplay";
 
 const AddTaskModal = dynamic(() => import("../modals/add-task-modal"), { ssr: false });
 const FilterSection = dynamic(() => import("../filter-section"), { ssr: false });
@@ -26,7 +27,7 @@ const TaskPage = () => {
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(getAllTasksDefaultQuery.page);
-  const [pageSize, setPageSize] = useState(getAllTasksDefaultQuery.page_size);
+  const [pageSize, setPageSize] = useState(getAllTasksDefaultQuery.pageSize);
   const [filterOpen, setFilterOpen] = useState(false);
   const [filters, setFilters] = useState<FilterTypes>(defaultStatus);
 
@@ -34,7 +35,7 @@ const TaskPage = () => {
     () => ({
       ...(search && { search }),
       page,
-      page_size: pageSize,
+      pageSize,
       sortBy: filters.sortBy,
       sort: filters.sortOrder,
       ...(filters.status && { status: filters.status }),
@@ -43,7 +44,7 @@ const TaskPage = () => {
     [page, pageSize, search, filters],
   );
 
-  const { data, isLoading } = useGetAllTasks(query);
+  const { data, isLoading, isError, refetch } = useGetAllTasks(query);
 
   return (
     <>
@@ -55,32 +56,34 @@ const TaskPage = () => {
         setAddTaskModalOpen={setAddTaskModalOpen}
       />
 
-      {filterOpen && (
+      {filterOpen ? (
         <FilterSection
           onClose={() => setFilterOpen(false)}
           filters={filters}
           setFilters={setFilters}
         />
+      ) : (
+        <FilterTag filters={filters} setFilters={setFilters} />
       )}
-
-      <FilterTag filters={filters} setFilters={setFilters} />
 
       {isLoading ? (
         <div className="flex flex-col items-center justify-center h-[calc(100vh-228px)]">
           <Spinner className="h-8 w-8 text-primary" />
           <span className="mt-2 animate-pulse">Fetching tasks...</span>
         </div>
+      ) : isError ? (
+        <ErrorDisplay onRetry={refetch} />
       ) : data?.tasks?.length === 0 ? (
         <EmptyPage search={search} setAddTaskModalOpen={setAddTaskModalOpen} />
       ) : (
         <ScrollArea className="mx-4 mb-4 p-4 bg-secondary rounded-md">
           {data?.tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task._id} task={task} />
           ))}
           <Pagination
             page={page}
             pageSize={pageSize}
-            total_record={data?.total_record || 0}
+            total_record={data?.totalRecord || 0}
             setPage={setPage}
             setPageSize={setPageSize}
           />
