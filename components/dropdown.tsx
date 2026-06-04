@@ -46,8 +46,12 @@ const Dropdown = ({
           <DropdownMenuItem
             key={option.value}
             onClick={() => handleSelect(option.value)}
-            className={cn("cursor-pointer", displayText === option.label && "text-primary")}>
-            {displayText === option.label ? <Check className="h-4 w-4" /> : <div className="w-4" />}
+            className={cn("cursor-pointer")}>
+            {displayText === option.label ? (
+              <Check className="h-4 w-4" strokeWidth={3} />
+            ) : (
+              <div className="w-4" />
+            )}
             {option.label}
           </DropdownMenuItem>
         ))}

@@ -1,4 +1,4 @@
-import { GetAllTasksQuery, TasksResponse } from "@/types/tasks";
+import { GetAllTasksQuery, TasksResponse, UpdateTaskBody } from "@/types/tasks";
 import { api } from "../lib/axios";
 import { taskByIdUrl, tasksUrl } from "@/lib/apiUrl";
 import { AddTaskFormType } from "@/components/modals/add-task-modal";
@@ -20,5 +20,10 @@ export const createTask = async (data: AddTaskFormType): Promise<TasksResponse> 
 
 export const deleteTask = async (id: string) => {
   const res = await api.delete(taskByIdUrl(id));
+  return res.data;
+};
+
+export const updateTask = async (id: string, body: UpdateTaskBody) => {
+  const res = await api.put(taskByIdUrl(id), body);
   return res.data;
 };

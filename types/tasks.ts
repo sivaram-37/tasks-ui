@@ -23,3 +23,9 @@ export interface GetAllTasksQuery {
   sort?: string;
   sortBy?: string;
 }
+
+export interface UpdateTaskBody {
+  title?: string;
+  priority?: "low" | "medium" | "high";
+  completed?: boolean;
+}
