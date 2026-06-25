@@ -1,3 +1,8 @@
+export const TOKEN_KEY = "task_app_auth_token";
+export const NAME_KEY = "task_app_auth_name";
+export const EMAIL_KEY = "task_app_auth_email";
+export const THEME_KEY = "task_app_theme";
+
 export const getAllTasksDefaultQuery = {
   page: 1,
   pageSize: 10,
