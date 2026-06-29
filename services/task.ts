@@ -1,7 +1,7 @@
 import { GetAllTasksQuery, TasksResponse, UpdateTaskBody } from "@/types/tasks";
 import { api } from "../lib/axios";
 import { taskByIdUrl, tasksUrl } from "@/lib/apiUrl";
-import { AddTaskFormType } from "@/components/modals/add-task-modal";
+import { AddTaskSchemaType } from "@/components/modals/add-task/add-task-schema";
 
 export const taskKeys = {
   all: ["tasks"] as const,
@@ -13,7 +13,7 @@ export const getAllTasks = async (query?: GetAllTasksQuery): Promise<TasksRespon
   return res.data;
 };
 
-export const createTask = async (data: AddTaskFormType): Promise<TasksResponse> => {
+export const createTask = async (data: AddTaskSchemaType): Promise<TasksResponse> => {
   const res = await api.post(tasksUrl, data);
   return res.data;
 };

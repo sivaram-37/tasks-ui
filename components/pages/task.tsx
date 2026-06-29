@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import FilterTag from "../filter-tag";
 import ErrorDisplay from "../ErrorDisplay";
 
-const AddTaskModal = dynamic(() => import("../modals/add-task-modal"), { ssr: false });
+const AddTaskModal = dynamic(() => import("../modals/add-task/add-task-modal"), { ssr: false });
 const FilterSection = dynamic(() => import("../filter-section"), { ssr: false });
 
 export interface FilterTypes {
@@ -83,6 +83,7 @@ const TaskPage = () => {
           <Pagination
             page={page}
             pageSize={pageSize}
+            totalPages={data?.totalPages || 0}
             total_record={data?.totalRecord || 0}
             setPage={setPage}
             setPageSize={setPageSize}

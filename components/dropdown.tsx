@@ -35,6 +35,7 @@ const Dropdown = ({
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
+          type="button"
           variant="outline"
           className={cn("w-48 h-9 border border-gray-300 dark:border-border", className)}>
           {displayText}

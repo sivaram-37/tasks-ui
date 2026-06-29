@@ -10,6 +10,7 @@ export interface Task {
 export interface TasksResponse {
   tasks: Task[];
   pageSize?: number;
+  totalPages?: number;
   page?: number;
   totalRecord: number;
 }

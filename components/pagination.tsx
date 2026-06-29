@@ -13,18 +13,18 @@ import {
 const Pagination = ({
   page,
   pageSize,
+  totalPages,
   total_record,
   setPage,
   setPageSize,
 }: {
   page: number;
   pageSize: number;
+  totalPages: number;
   total_record: number;
   setPage: (page: number) => void;
   setPageSize: (pageSize: number) => void;
 }) => {
-  const totalPages = Math.ceil(total_record / pageSize);
-
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
 
